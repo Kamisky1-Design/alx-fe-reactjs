@@ -1,7 +1,7 @@
-import UserProfile from "./UserProfile";
+import UserProfile from "./components/UserProfile";
 
 function ProfilePage() {
-  return <UserProfile />;  // must render the component that consumes context
+  return <UserProfile />;
 }
 
 export default ProfilePage;
