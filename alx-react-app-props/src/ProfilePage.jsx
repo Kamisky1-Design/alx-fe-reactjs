@@ -1,8 +1,7 @@
-import UserInfo from "./UserInfo";
+import UserProfile from "./UserProfile";
 
 function ProfilePage() {
-  // No props needed anymore
-  return <UserInfo />;
+  return <UserProfile />;  // must render the component that consumes context
 }
 
 export default ProfilePage;
