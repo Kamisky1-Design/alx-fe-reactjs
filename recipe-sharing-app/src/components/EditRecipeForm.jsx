@@ -6,8 +6,8 @@ const EditRecipeForm = ({ recipe }) => {
   const [title, setTitle] = useState(recipe.title);
   const [description, setDescription] = useState(recipe.description);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault(); // MUST be here
     updateRecipe({ ...recipe, title, description });
     alert('Recipe updated successfully!');
   };
@@ -19,10 +19,12 @@ const EditRecipeForm = ({ recipe }) => {
         type="text"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
+        required
       />
       <textarea
         value={description}
         onChange={(e) => setDescription(e.target.value)}
+        required
       />
       <button type="submit">Save Changes</button>
     </form>
@@ -30,4 +32,3 @@ const EditRecipeForm = ({ recipe }) => {
 };
 
 export default EditRecipeForm;
-
