@@ -10,9 +10,7 @@ const RecipeDetails = () => {
     state.recipes.find((r) => r.id === recipeId)
   );
 
-  if (!recipe) {
-    return <p>Recipe not found.</p>;
-  }
+  if (!recipe) return <p>Recipe not found.</p>;
 
   return (
     <div>
@@ -25,4 +23,3 @@ const RecipeDetails = () => {
 };
 
 export default RecipeDetails;
-

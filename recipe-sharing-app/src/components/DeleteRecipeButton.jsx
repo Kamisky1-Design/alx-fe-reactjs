@@ -18,4 +18,3 @@ const DeleteRecipeButton = ({ id }) => {
 };
 
 export default DeleteRecipeButton;
-
