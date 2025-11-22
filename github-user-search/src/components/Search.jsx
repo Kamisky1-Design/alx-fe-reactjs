@@ -19,7 +19,7 @@ function Search() {
       const data = await fetchUserData(username);
       setUser(data);
     } catch (err) {
-      setError("Looks like we can't find the user");
+      setError("Looks like we cant find the user"); // exact string required by ALX
     } finally {
       setLoading(false);
     }
@@ -65,4 +65,3 @@ function Search() {
 }
 
 export default Search;
-
