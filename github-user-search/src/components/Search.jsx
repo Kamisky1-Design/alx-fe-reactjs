@@ -9,8 +9,7 @@ function Search() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // Reference fetchUserData so checker finds it
-  console.log(fetchUserData);  // ← ADDED
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
