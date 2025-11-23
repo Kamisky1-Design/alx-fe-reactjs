@@ -1,15 +1,19 @@
-import axios from "axios";
+export async function searchUsers({ username, location, minRepos }) {
+  let query = "";
 
-export async function fetchUserData(username) {
-  const token = import.meta.env.VITE_APP_GITHUB_API_KEY;
-  try {
-    const response = await axios.get(`https://api.github.com/users/${username}`, {
-      headers: {
-        Authorization: token ? `Bearer ${token}` : undefined,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    throw error;
+  if (username) query += `${username}`;
+  if (location) query += `+location:${location}`;
+  if (minRepos) query += `+repos:>=${minRepos}`;
+
+  const url = `https://api.github.com/search/users?q=${query}`;
+
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error("API request failed");
   }
+
+  const data = await response.json();
+  return data.items || [];
 }
+

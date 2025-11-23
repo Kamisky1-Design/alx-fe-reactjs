@@ -1,63 +1,85 @@
 import { useState } from "react";
-import { fetchUserData } from "../services/githubService";
+import { searchUsers } from "../services/githubService";
 
 function Search() {
   const [username, setUsername] = useState("");
-  const [user, setUser] = useState(null);
+  const [location, setLocation] = useState("");
+  const [minRepos, setMinRepos] = useState("");
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!username) return;
-
     setLoading(true);
     setError("");
-    setUser(null);
+    setUsers([]);
 
     try {
-      const data = await fetchUserData(username);
-      setUser(data);
+      const results = await searchUsers({ username, location, minRepos });
+      if (results.length === 0) {
+        setError("Looks like we cant find the user");
+      } else {
+        setUsers(results);
+      }
     } catch (err) {
-      setError("Looks like we cant find the user"); // exact string required by ALX
+      setError("Looks like we cant find the user");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      {/* Search Form */}
-      <form onSubmit={handleSubmit}>
+    <div style={{ maxWidth: "600px", margin: "40px auto", padding: "20px" }}>
+      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
         <input
           type="text"
-          placeholder="Search GitHub username..."
+          placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          style={{ padding: "8px", width: "250px" }}
+          style={{ padding: "8px", borderRadius: "6px", border: "1px solid #ccc" }}
         />
-        <button type="submit" style={{ padding: "8px 10px", marginLeft: "10px" }}>
+        <input
+          type="text"
+          placeholder="Location"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+          style={{ padding: "8px", borderRadius: "6px", border: "1px solid #ccc" }}
+        />
+        <input
+          type="number"
+          placeholder="Min Repositories"
+          value={minRepos}
+          onChange={(e) => setMinRepos(e.target.value)}
+          style={{ padding: "8px", borderRadius: "6px", border: "1px solid #ccc" }}
+        />
+        <button
+          type="submit"
+          style={{ padding: "8px 10px", borderRadius: "6px", backgroundColor: "#3b82f6", color: "#fff", border: "none", cursor: "pointer" }}
+        >
           Search
         </button>
       </form>
 
-      {/* Loading */}
-      {loading && <p>Loading...</p>}
+      {loading && <p style={{ marginTop: "20px" }}>Loading...</p>}
+      {error && <p style={{ marginTop: "20px", color: "red" }}>{error}</p>}
 
-      {/* Error */}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-
-      {/* Success */}
-      {user && (
-        <div style={{ marginTop: "20px" }}>
-          <img
-            src={user.avatar_url}
-            alt="avatar"
-            width="120"
-            style={{ borderRadius: "10px" }}
-          />
-          <h2>{user.name || user.login}</h2>
-          <a href={user.html_url} target="_blank">Visit GitHub Profile</a>
+      {users.length > 0 && (
+        <div style={{ marginTop: "20px", display: "flex", flexDirection: "column", gap: "10px" }}>
+          {users.map((user) => (
+            <div
+              key={user.id}
+              style={{ display: "flex", alignItems: "center", gap: "10px", border: "1px solid #ccc", padding: "10px", borderRadius: "6px" }}
+            >
+              <img src={user.avatar_url} alt="avatar" style={{ width: "50px", borderRadius: "50%" }} />
+              <div>
+                <h2 style={{ fontWeight: "bold" }}>{user.login}</h2>
+                <a href={user.html_url} target="_blank" style={{ color: "#3b82f6", textDecoration: "underline" }} rel="noreferrer">
+                  GitHub Profile
+                </a>
+              </div>
+            </div>
+          ))}
         </div>
       )}
     </div>
