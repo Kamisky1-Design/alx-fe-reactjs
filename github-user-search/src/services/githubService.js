@@ -1,18 +1,15 @@
-// src/services/githubService.js
+import axios from "axios";
 
 export async function fetchUserData(username) {
+  const token = import.meta.env.VITE_APP_GITHUB_API_KEY;
   try {
-    const response = await fetch(`https://api.github.com/users/${username}`);
-
-    if (!response.ok) {
-      throw new Error("User not found");
-    }
-
-    const data = await response.json();
-    return data;
-
+    const response = await axios.get(`https://api.github.com/users/${username}`, {
+      headers: {
+        Authorization: token ? `Bearer ${token}` : undefined,
+      },
+    });
+    return response.data;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 }
