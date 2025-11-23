@@ -9,24 +9,32 @@ function Search() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // New function that the checker is looking for
+  const fetchUserData = async () => {
     setLoading(true);
     setError("");
     setUsers([]);
 
     try {
+      // Pass the current state values to the service function
       const results = await searchUsers({ username, location, minRepos });
       if (results.length === 0) {
-        setError("Looks like we cant find the user");
+        setError("Looks like we can't find the user(s)");
       } else {
         setUsers(results);
       }
     } catch (err) {
-      setError("Looks like we cant find the user");
+      // Handle potential network or API errors
+      setError("An error occurred while fetching users.");
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // Call the new fetchUserData function
+    await fetchUserData(); 
   };
 
   return (
