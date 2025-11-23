@@ -1,27 +1,18 @@
-import axios from "axios";
+// src/services/githubService.js
 
-const BASE_URL = "https://api.github.com";
-
-export async function searchUsers({ username, location, minRepos }) {
+export async function fetchUserData(username) {
   try {
-    // Build search query
-    let query = username ? `${username} in:login` : "";
-    if (location) query += ` location:${location}`;
-    if (minRepos) query += ` repos:>=${minRepos}`;
+    const response = await fetch(`https://api.github.com/users/${username}`);
 
-    const url = query ? `${BASE_URL}/search/users?q=${encodeURIComponent(query)}` : `${BASE_URL}/users`;
+    if (!response.ok) {
+      throw new Error("User not found");
+    }
 
-    const response = await axios.get(url, {
-      headers: {
-        Accept: "application/vnd.github.v3+json",
-        // Authorization: `token ${import.meta.env.VITE_APP_GITHUB_API_KEY}` // optional if using token
-      },
-    });
+    const data = await response.json();
+    return data;
 
-    // GitHub Search API returns items array
-    return response.data.items || [];
   } catch (error) {
     console.error(error);
-    return [];
+    throw error;
   }
 }
