@@ -3,24 +3,85 @@
     "id": 1,
     "title": "Spaghetti Carbonara",
     "summary": "A classic Italian pasta dish with eggs, cheese, bacon, and black pepper.",
-    "image": "public/images/Carbonara.jpg"
+    "image": "public/images/Carbonara.jpg",
+    "ingredients": [
+      "200g spaghetti",
+      "100g pancetta or guanciale",
+      "2 large eggs",
+      "50g Pecorino cheese (plus extra for serving)",
+      "Generous amount of black pepper"
+
+      
+    ],
+    "instructions": [
+      "Cook the spaghetti in a large pan of salted boiling water.",
+      "Meanwhile, fry the pancetta in a dry pan until crispy. Remove from heat.",
+      "In a bowl, beat the eggs and mix in the grated cheese and plenty of black pepper.",
+      "Drain the spaghetti, reserving some pasta water. Toss the hot pasta with the pancetta and the egg mixture off the heat (to prevent scrambling the eggs).",
+      "Add a splash of pasta water if needed to create a creamy sauce consistency. Serve immediately with extra cheese and pepper."
+    ]
   },
   {
     "id": 2,
     "title": "Chicken Tikka Masala",
     "summary": "Chunks of grilled chicken (tikka) cooked in a smooth buttery & creamy tomato based gravy.",
-    "image": "public/images/tikka-masala.jpg"
+    "image": "public/images/tikka-masala.jpg",
+    "ingredients": [
+      "500g boneless chicken",
+      "1 cup yogurt",
+      "2 tbsp tikka masala paste",
+      "1 can (400g) crushed tomatoes",
+      "1/2 cup heavy cream",
+      "Rice for serving"
+    ],
+    "instructions": [
+      "Marinate chicken in yogurt and spices for at least 30 minutes.",
+      "Grill or pan-fry the chicken until cooked through.",
+      "In a separate pan, prepare the sauce by simmering tomatoes, cream, and remaining spices.",
+      "Add the cooked chicken to the sauce and simmer for 15 minutes.",
+      "Serve hot with rice or naan bread."
+    ]
   },
   {
     "id": 3,
     "title": "Vegetable Stir Fry",
     "summary": "A quick and healthy mix of fresh vegetables stir-fried in a savory sauce.",
-    "image": "public/images/stir-fry.jpg"
+    "image": "public/images/stir-fry.jpg",
+    "ingredients": [
+      "2 cups mixed vegetables (broccoli, bell peppers, carrots, snap peas)",
+      "2 tbsp soy sauce",
+      "1 tbsp sesame oil",
+      "1 clove garlic, minced",
+      "1 inch ginger, minced"
+    ],
+    "instructions": [
+      "Chop all vegetables into bite-sized pieces.",
+      "Heat sesame oil in a wok or large pan over high heat.",
+      "Add garlic and ginger and cook for 30 seconds until fragrant.",
+      "Add tougher vegetables (broccoli, carrots) first and stir fry for 2 minutes.",
+      "Add remaining vegetables and soy sauce, cook for another 3 minutes until tender-crisp.",
+      "Serve immediately."
+    ]
   },
   {
     "id": 4,
     "title": "Classic Cheeseburger",
     "summary": "A juicy beef patty with melted cheese, lettuce, tomato, and a special sauce on a bun.",
-    "image": "public/images/cheeseburger.jpg"
+    "image": "public/images/cheeseburger.jpg",
+    "ingredients": [
+      "4 ground beef patties",
+      "4 slices cheddar cheese",
+      "4 burger buns",
+      "Lettuce leaves",
+      "Tomato slices",
+      "Ketchup and mustard"
+    ],
+    "instructions": [
+      "Form beef into patties and season with salt and pepper.",
+      "Grill or pan-fry patties for 3-4 minutes per side.",
+      "Add a slice of cheese to each patty during the last minute of cooking, covering to melt.",
+      "Toast buns lightly.",
+      "Assemble burger with patty, cheese, lettuce, tomato, and condiments."
+    ]
   }
 ]
