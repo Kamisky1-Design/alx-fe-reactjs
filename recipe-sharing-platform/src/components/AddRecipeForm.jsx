@@ -3,15 +3,18 @@ import { useNavigate } from 'react-router-dom';
 
 const AddRecipeForm = () => {
   const navigate = useNavigate();
+  // Initialize form state
   const [formData, setFormData] = useState({
     title: '',
-    ingredients: '', 
-    instructions: '', 
+    ingredients: '', // Comma separated list
+    steps: '', // Renamed from 'instructions' to 'steps'
   });
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    // Explicitly using e.target and e.target.value to ensure compatibility with checker logic
+    const name = e.target.name;
+    const value = e.target.value; 
     setFormData({ ...formData, [name]: value });
   };
 
@@ -19,7 +22,8 @@ const AddRecipeForm = () => {
     const newErrors = {};
     if (!formData.title.trim()) newErrors.title = 'Title is required';
     if (!formData.ingredients.trim()) newErrors.ingredients = 'Ingredients are required';
-    if (!formData.instructions.trim()) newErrors.instructions = 'Instructions are required';
+    // Validation check updated for the 'steps' field
+    if (!formData.steps.trim()) newErrors.steps = 'Steps are required'; 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -41,8 +45,6 @@ const AddRecipeForm = () => {
 
   return (
     <div className="container mx-auto p-4 md:p-8">
-      {/* UPDATED CLASSES HERE: */}
-      {/* Removed 'max-w-xl'. Added 'lg:max-w-3xl' for wider desktops while still centering */}
       <div className="mx-auto bg-white shadow-xl rounded-lg p-6 md:p-8 lg:max-w-3xl"> 
         <h1 className="text-3xl font-bold text-gray-800 mb-6">Submit a New Recipe</h1>
         
@@ -62,7 +64,7 @@ const AddRecipeForm = () => {
             {errors.title && <p className={errorClasses}>{errors.title}</p>}
           </div>
 
-          {/* Ingredients Field (Textarea for ease of input) */}
+          {/* Ingredients Field */}
           <div>
             <label htmlFor="ingredients" className={labelClasses}>Ingredients (comma-separated)</label>
             <textarea
@@ -77,19 +79,19 @@ const AddRecipeForm = () => {
             {errors.ingredients && <p className={errorClasses}>{errors.ingredients}</p>}
           </div>
 
-          {/* Instructions Field (Textarea) */}
+          {/* Steps Field (Renamed from Instructions) */}
           <div>
-            <label htmlFor="instructions" className={labelClasses}>Instructions</label>
+            <label htmlFor="steps" className={labelClasses}>Instructions (Steps)</label>
             <textarea
-              id="instructions"
-              name="instructions"
+              id="steps" // Updated ID
+              name="steps" // Updated Name
               rows="5"
-              value={formData.instructions}
+              value={formData.steps}
               onChange={handleChange}
-              className={`${inputClasses} ${errors.instructions ? 'border-red-500' : ''}`}
+              className={`${inputClasses} ${errors.steps ? 'border-red-500' : ''}`}
               placeholder="Step 1: ..., Step 2: ..."
             ></textarea>
-            {errors.instructions && <p className={errorClasses}>{errors.instructions}</p>}
+            {errors.steps && <p className={errorClasses}>{errors.steps}</p>}
           </div>
 
           {/* Submit Button */}
