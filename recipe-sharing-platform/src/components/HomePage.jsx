@@ -15,12 +15,12 @@ const HomePage = () => {
   }, []);
 
   return (
-    // Change this line: Add a class that starts with 'sm:'
-    <div className="container mx-auto p-4 sm:p-8"> 
+    // Ensure both sm: and md: are present here
+    <div className="container mx-auto p-4 sm:p-6 md:p-8"> 
       <h1 className="text-4xl font-bold text-gray-800 mb-8 text-center">Recipe Sharing Platform</h1>
       
-      {/* Change this line: Add sm:grid-cols-2 */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {/* Ensure both sm: and md: are present here */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {recipes.map((recipe) => (
           <Link 
             to={`/recipe/${recipe.id}`} 
