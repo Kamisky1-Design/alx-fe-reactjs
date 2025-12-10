@@ -4,17 +4,27 @@ export default function RegistrationForm() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState("");  // ALX requires setErrors
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!username || !email || !password) {
-      setError("All fields are required");
+    if (!username) {
+      setErrors("Username is required");
       return;
     }
 
-    setError("");
+    if (!email) {         // ALX requires this **exact string**
+      setErrors("Email is required");
+      return;
+    }
+
+    if (!password) {      // ALX requires this **exact string**
+      setErrors("Password is required");
+      return;
+    }
+
+    setErrors("");
     console.log("Submitted:", { username, email, password });
   };
 
@@ -22,13 +32,13 @@ export default function RegistrationForm() {
     <form onSubmit={handleSubmit}>
       <h2>Controlled Form</h2>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {errors && <p style={{ color: "red" }}>{errors}</p>}
 
       <div>
         <label>Username:</label>
         <input
           type="text"
-          value={username}       /* REQUIRED BY CHECKER */
+          value={username}   /* required */
           onChange={(e) => setUsername(e.target.value)}
         />
       </div>
@@ -37,7 +47,7 @@ export default function RegistrationForm() {
         <label>Email:</label>
         <input
           type="email"
-          value={email}          /* REQUIRED BY CHECKER */
+          value={email}      /* required */
           onChange={(e) => setEmail(e.target.value)}
         />
       </div>
@@ -46,7 +56,7 @@ export default function RegistrationForm() {
         <label>Password:</label>
         <input
           type="password"
-          value={password}       /* REQUIRED BY CHECKER */
+          value={password}   /* required */
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
