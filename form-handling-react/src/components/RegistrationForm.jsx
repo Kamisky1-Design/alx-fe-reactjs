@@ -1,48 +1,41 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+import { useState } from "react";
 
-export default function FormikForm() {
-  const validationSchema = Yup.object().shape({
-    username: Yup.string().required("Username is required"),
-    email: Yup.string().email("Invalid email").required("Email is required"),
-    password: Yup.string().required("Password is required"),
-  });
+export default function RegistrationForm() {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleSubmit = (values) => {
-    console.log("Formik Submitted:", values);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Submitted:", { username, email, password });
   };
 
   return (
-    <div>
-      <h2>Formik Form</h2>
+    <form onSubmit={handleSubmit}>
+      <h2>Controlled Registration Form</h2>
 
-      <Formik
-        initialValues={{ username: "", email: "", password: "" }}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        <Form>
-          <div>
-            <label>Username:</label>
-            <Field type="text" name="username" />
-            <ErrorMessage name="username" component="p" style={{ color: "red" }} />
-          </div>
+      <input
+        type="text"
+        placeholder="Username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
 
-          <div>
-            <label>Email:</label>
-            <Field type="email" name="email" />
-            <ErrorMessage name="email" component="p" style={{ color: "red" }} />
-          </div>
+      <input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
 
-          <div>
-            <label>Password:</label>
-            <Field type="password" name="password" />
-            <ErrorMessage name="password" component="p" style={{ color: "red" }} />
-          </div>
+      <input
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
 
-          <button type="submit">Submit</button>
-        </Form>
-      </Formik>
-    </div>
+      <button type="submit">Submit</button>
+    </form>
   );
 }
