@@ -6,8 +6,8 @@ export default function Login() {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    login(); // Set isAuthenticated = true
-    navigate('/dashboard', { replace: true }); // Redirect to dashboard after login
+    login();
+    navigate('/dashboard', { replace: true });
   };
 
   return (

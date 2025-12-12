@@ -4,6 +4,5 @@ import { checkAuth } from '../authService';
 
 export default function ProtectedRoute() {
   const isAuth = checkAuth();
-
   return isAuth ? <Outlet /> : <Navigate to="/login" replace />;
 }

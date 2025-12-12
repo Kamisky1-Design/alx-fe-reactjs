@@ -1,9 +1,4 @@
 // src/pages/Home.jsx
 export default function Home() {
-  return (
-    <div>
-      <h1>Home Page</h1>
-      <p>Welcome to the advanced routing demo application.</p>
-    </div>
-  );
+  return <h1>Home Page</h1>;
 }

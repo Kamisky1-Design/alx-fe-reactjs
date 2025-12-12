@@ -6,14 +6,15 @@ import About from './pages/About';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import PostDetail from './pages/PostDetail';
-import ProfileLayout from './pages/ProfileLayout';
-import ProfileDetails from './pages/ProfileDetails';
-import ProfileSettings from './pages/ProfileSettings';
 import ProtectedRoute from './components/ProtectedRoute';
+
+// Update this line to import the default 'Profile' and the named exports:
+import Profile, { ProfileDetails, ProfileSettings } from './components/Profile'; 
+
 
 export default function App() {
   return (
-    <BrowserRouter> {/* Changed from <Router> to <BrowserRouter> */}
+    <BrowserRouter> {/* Using BrowserRouter as a component */}
       <nav style={{ marginBottom: '20px' }}>
         <Link to="/">Home</Link> | 
         <Link to="/about">About</Link> | 
@@ -36,11 +37,12 @@ export default function App() {
            <Route path="/dashboard" element={<Dashboard />} />
         </Route>
 
-        {/* Nested Routes Setup */}
-        <Route path="/profile" element={<ProfileLayout />}>
+        {/* Nested Routes Setup using the single Profile component file */}
+        <Route path="/profile" element={<Profile />}>
           <Route index element={<ProfileDetails />} /> 
           <Route path="settings" element={<ProfileSettings />} />
         </Route>
+        
       </Routes>
     </BrowserRouter>
   );

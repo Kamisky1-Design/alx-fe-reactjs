@@ -7,7 +7,7 @@ export default function Dashboard() {
 
   const handleLogout = () => {
     logout();
-    navigate('/', { replace: true }); // Go home after logging out
+    navigate('/', { replace: true });
   };
 
   return (
