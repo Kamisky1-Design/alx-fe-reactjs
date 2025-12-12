@@ -61,12 +61,18 @@ test('allows user to toggle a todo completion status', () => {
 // 4. Test Deleting Todos
 test('allows user to delete a todo', () => {
   render(<TodoList />);
+
   const todoText = 'Learn React';
+
+  // get the list item
   const todoItem = screen.getByText(todoText);
   expect(todoItem).toBeInTheDocument();
 
-  const deleteButton = todoItem.closest('li').querySelector('button');
+  // find the delete button for that item
+  const deleteButton = screen.getAllByText('Delete')[0];
+
   fireEvent.click(deleteButton);
 
+  // verify removal
   expect(screen.queryByText(todoText)).not.toBeInTheDocument();
 });
