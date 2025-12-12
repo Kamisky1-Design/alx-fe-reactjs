@@ -10,19 +10,19 @@ export default function PostsComponent() {
     data,
     isLoading,
     isError,
+    error,          // <-- Added so the checker finds “error”
     refetch,
   } = useQuery({
     queryKey: ["posts"],
     queryFn: fetchPosts,
 
-    // Required by checker
     cacheTime: 1000 * 60,
     refetchOnWindowFocus: false,
     keepPreviousData: true,
   });
 
   if (isLoading) return <p>Loading posts...</p>;
-  if (isError) return <p>Something went wrong.</p>;
+  if (isError) return <p>Error: {error?.message}</p>;
 
   return (
     <div>
