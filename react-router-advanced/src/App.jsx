@@ -8,13 +8,13 @@ import Dashboard from './pages/Dashboard';
 import PostDetail from './pages/PostDetail';
 import ProtectedRoute from './components/ProtectedRoute';
 
-// Update this line to import the default 'Profile' and the named exports:
-import Profile, { ProfileDetails, ProfileSettings } from './components/Profile'; 
+// Import only the default export 'Profile' from the combined file:
+import Profile from './components/Profile'; 
 
 
 export default function App() {
   return (
-    <BrowserRouter> {/* Using BrowserRouter as a component */}
+    <BrowserRouter>
       <nav style={{ marginBottom: '20px' }}>
         <Link to="/">Home</Link> | 
         <Link to="/about">About</Link> | 
@@ -37,11 +37,11 @@ export default function App() {
            <Route path="/dashboard" element={<Dashboard />} />
         </Route>
 
-        {/* Nested Routes Setup using the single Profile component file */}
-        <Route path="/profile" element={<Profile />}>
-          <Route index element={<ProfileDetails />} /> 
-          <Route path="settings" element={<ProfileSettings />} />
-        </Route>
+        {/* 
+          Single Route for Profile with a wildcard path. 
+          The nested routes are now defined inside Profile.jsx using its own <Routes> setup.
+        */}
+        <Route path="/profile/*" element={<Profile />} />
         
       </Routes>
     </BrowserRouter>
