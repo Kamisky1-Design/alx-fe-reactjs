@@ -65,11 +65,8 @@ test('allows user to delete a todo', () => {
   const todoItem = screen.getByText(todoText);
   expect(todoItem).toBeInTheDocument();
 
-  // A robust query for the delete button specific to the item
-  const deleteButton = screen.getByRole('button', { name: /Delete/i, container: todoItem.closest('li') });
-  
+  const deleteButton = todoItem.closest('li').querySelector('button');
   fireEvent.click(deleteButton);
 
-  // Verify the todo item is removed from the document
-  expect(todoItem).not.toBeInTheDocument();
+  expect(screen.queryByText(todoText)).not.toBeInTheDocument();
 });

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import TodoItem from './TodoItem'; 
-import AddTodoForm from './AddTodoForm'; 
+import TodoItem from './TodoItem';
+import AddTodoForm from './AddTodoForm';
 
 const TodoList = () => {
   const [todos, setTodos] = useState([
@@ -9,12 +9,12 @@ const TodoList = () => {
     { id: 3, title: 'Test the App', completed: false },
   ]);
 
-  const addTodo = (title) => { /* ... (addTodo implementation is fine) ... */
+  const addTodo = (title) => {
     const newTodo = { id: Date.now(), title, completed: false };
     setTodos([...todos, newTodo]);
   };
 
-  const toggleTodo = (id) => { /* ... (toggleTodo implementation is fine) ... */
+  const toggleTodo = (id) => {
     setTodos(
       todos.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
@@ -22,14 +22,16 @@ const TodoList = () => {
     );
   };
 
-  const deleteTodo = (id) => { /* ... (deleteTodo implementation is fine) ... */
+  const deleteTodo = (id) => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
   return (
-    <div className="todo-list-container"> {/* Use simple class name */}
+    <div className="todo-list-container">
       <h1>Todo List</h1>
+
       <AddTodoForm onAdd={addTodo} />
+
       {todos.length > 0 ? (
         <ul>
           {todos.map((todo) => (
@@ -42,7 +44,7 @@ const TodoList = () => {
           ))}
         </ul>
       ) : (
-        <p>No todos found.</p> // Simplified message
+        <p>No todos found.</p>
       )}
     </div>
   );
