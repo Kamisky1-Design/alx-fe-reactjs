@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import TodoItem from './components/TodoItem';
-import AddTodoForm from './components/AddTodoForm';
-import './App.css'; // You can clear this file if you want, or just leave it.
+import TodoItem from './TodoItem.jsx';
+import AddTodoForm from './AddTodoForm.jsx';
 
-function App() {
+const TodoList = () => {
   const [todos, setTodos] = useState([
     { id: 1, title: 'Learn React', completed: false },
     { id: 2, title: 'Build a Todo App', completed: true },
@@ -12,7 +11,7 @@ function App() {
 
   const addTodo = (title) => {
     const newTodo = {
-      id: Date.now(), // Simple unique ID generation
+      id: Date.now(),
       title,
       completed: false,
     };
@@ -32,7 +31,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="TodoListContainer">
       <h1>Todo List</h1>
       <AddTodoForm onAdd={addTodo} />
       {todos.length > 0 ? (
@@ -51,6 +50,6 @@ function App() {
       )}
     </div>
   );
-}
+};
 
-export default App;
+export default TodoList;
