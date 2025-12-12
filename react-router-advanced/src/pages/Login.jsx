@@ -1,12 +1,14 @@
-// src/pages/Login.jsx
 import { useNavigate } from 'react-router-dom';
-import { login } from '../authService';
+// Import the new hook
+import { useAuth } from '../authService.jsx' 
 
 export default function Login() {
   const navigate = useNavigate();
+  // Get the login function from the context
+  const { login } = useAuth();
 
   const handleLogin = () => {
-    login();
+    login(); // Use the context login function
     navigate('/dashboard', { replace: true });
   };
 
