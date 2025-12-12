@@ -1,5 +1,5 @@
 import React from 'react';
-import TodoList from './components/TodoList.js'; // Ensure correct extension
+import TodoList from './components/TodoList'; // REMOVE .jsx extension
 import './App.css'; 
 
 function App() {
