@@ -1,12 +1,11 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import TodoList from '../components/TodoList.jsx';
+import TodoList from '../components/TodoList.js'; // Ensure correct extension
 
 // 1. Initial Render Test
 test('renders initial list of todos', () => {
   render(<TodoList />);
-
   expect(screen.getByText(/Learn React/i)).toBeInTheDocument();
   expect(screen.getByText(/Build a Todo App/i)).toBeInTheDocument();
   expect(screen.getByText(/Test the App/i)).toBeInTheDocument();
