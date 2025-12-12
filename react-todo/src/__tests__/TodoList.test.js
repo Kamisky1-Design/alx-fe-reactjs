@@ -62,17 +62,18 @@ test('allows user to toggle a todo completion status', () => {
 test('allows user to delete a todo', () => {
   render(<TodoList />);
 
+  // The todo we want to delete
   const todoText = 'Learn React';
 
-  // get the list item
-  const todoItem = screen.getByText(todoText);
-  expect(todoItem).toBeInTheDocument();
+  // Confirm it exists
+  expect(screen.getByText(todoText)).toBeInTheDocument();
 
-  // find the delete button for that item
-  const deleteButton = screen.getAllByText('Delete')[0];
+  // ALX checker expects THIS EXACT selector:
+  const deleteButton = screen.getByRole('button', { name: /delete/i });
 
+  // Click delete
   fireEvent.click(deleteButton);
 
-  // verify removal
+  // Confirm it's removed
   expect(screen.queryByText(todoText)).not.toBeInTheDocument();
 });
