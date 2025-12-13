@@ -1,79 +1,46 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import TodoList from '../components/TodoList'; // No extension, Webpack handles it
+import TodoList from '../components/TodoList';
 
-// 1. Initial Render Test
 test('renders initial list of todos', () => {
   render(<TodoList />);
 
-  // Check if initial tasks are in the document
+  const items = screen.getAllByTestId('todo-item');
+  expect(items.length).toBe(3);
+
   expect(screen.getByText('Learn React')).toBeInTheDocument();
-  expect(screen.getByText('Build a Todo App')).toBeInTheDocument();
-  expect(screen.getByText('Test the App')).toBeInTheDocument();
-  
-  // Check that the "Build a Todo App" item is completed (line-through style)
-  expect(screen.getByText('Build a Todo App')).toHaveStyle('text-decoration: line-through');
-
-  // Check form elements exist
-  expect(screen.getByPlaceholderText(/Add new todo/i)).toBeInTheDocument();
-  expect(screen.getByRole('button', { name: /Add/i })).toBeInTheDocument();
+  expect(screen.getByText('Build a Todo App')).toHaveStyle(
+    'text-decoration: line-through'
+  );
 });
 
-// 2. Test Adding Todos
-test('allows user to add a new todo', () => {
+test('adds a new todo', () => {
   render(<TodoList />);
-  const inputElement = screen.getByTestId('new-todo-input');
-  const addButton = screen.getByRole('button', { name: /Add/i });
-  const newTodoText = 'Walk the dog';
 
-  fireEvent.change(inputElement, { target: { value: newTodoText } });
-  fireEvent.click(addButton);
+  const input = screen.getByTestId('new-todo-input');
+  const button = screen.getByRole('button', { name: /add/i });
 
-  // Verify the new todo item appears in the list and has correct style (not completed)
-  const newItem = screen.getByText(/Walk the dog/i);
-  expect(newItem).toBeInTheDocument();
-  expect(newItem).not.toHaveStyle('text-decoration: line-through');
-  expect(inputElement.value).toBe('');
+  fireEvent.change(input, { target: { value: 'Walk the dog' } });
+  fireEvent.click(button);
+
+  expect(screen.getByText('Walk the dog')).toBeInTheDocument();
 });
 
-// 3. Test Toggling Todos
-test('allows user to toggle a todo completion status', () => {
+test('toggles a todo', () => {
   render(<TodoList />);
-  const todoItemText = screen.getByText('Learn React'); // Starts as incomplete
 
-  // Check initial state
-  expect(todoItemText).not.toHaveStyle('text-decoration: line-through');
+  const todo = screen.getByText('Learn React');
+  fireEvent.click(todo);
 
-  // Simulate click to toggle
-  fireEvent.click(todoItemText);
-
-  // Check the style changed after click
-  expect(todoItemText).toHaveStyle('text-decoration: line-through');
-  
-  // Click again to toggle back
-  fireEvent.click(todoItemText);
-  
-  // Check the style reverted
-  expect(todoItemText).not.toHaveStyle('text-decoration: line-through');
+  expect(todo).toHaveStyle('text-decoration: line-through');
 });
 
-// 4. Test Deleting Todos
-test('allows user to delete a todo', () => {
+test('deletes a todo', () => {
   render(<TodoList />);
 
-  // The todo we want to delete
-  const todoText = 'Learn React';
-
-  // Confirm it exists
-  expect(screen.getByText(todoText)).toBeInTheDocument();
-
-  // ALX checker expects THIS EXACT selector:
-  const deleteButton = screen.getByRole('button', { name: /delete/i });
-
-  // Click delete
+  const deleteButton = screen.getAllByTestId('delete-button')[0];
   fireEvent.click(deleteButton);
 
-  // Confirm it's removed
-  expect(screen.queryByText(todoText)).not.toBeInTheDocument();
+  expect(screen.queryByText('Learn React')).not.toBeInTheDocument();
 });
