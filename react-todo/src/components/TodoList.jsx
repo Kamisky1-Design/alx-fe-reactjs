@@ -1,23 +1,30 @@
 import React, { useState } from 'react';
-import TodoItem from './TodoItem';
-import AddTodoForm from './AddTodoForm';
 
 const TodoList = () => {
   const [todos, setTodos] = useState([
-    { id: 1, title: 'Learn React', completed: false },
-    { id: 2, title: 'Build a Todo App', completed: true },
-    { id: 3, title: 'Test the App', completed: false },
+    { id: 1, text: 'Learn React', completed: false },
+    { id: 2, text: 'Build a Todo App', completed: true },
+    { id: 3, text: 'Test the App', completed: false },
   ]);
 
-  const addTodo = (title) => {
-    const newTodo = { id: Date.now(), title, completed: false };
-    setTodos([...todos, newTodo]);
+  const [input, setInput] = useState('');
+
+  const addTodo = () => {
+    if (!input.trim()) return;
+
+    setTodos([
+      ...todos,
+      { id: Date.now(), text: input, completed: false },
+    ]);
+    setInput('');
   };
 
   const toggleTodo = (id) => {
     setTodos(
       todos.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+        todo.id === id
+          ? { ...todo, completed: !todo.completed }
+          : todo
       )
     );
   };
@@ -29,15 +36,31 @@ const TodoList = () => {
   return (
     <div>
       <h1>Todo List</h1>
-      <AddTodoForm onAdd={addTodo} />
+
+      <input
+        placeholder="Add new todo"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        data-testid="new-todo-input"
+      />
+      <button onClick={addTodo}>Add</button>
+
       <ul>
         {todos.map((todo) => (
-          <TodoItem
+          <li
             key={todo.id}
-            todo={todo}
-            onToggle={toggleTodo}
-            onDelete={deleteTodo}
-          />
+            onClick={() => toggleTodo(todo.id)}
+            style={{
+              textDecoration: todo.completed
+                ? 'line-through'
+                : 'none',
+            }}
+          >
+            {todo.text}
+            <button onClick={() => deleteTodo(todo.id)}>
+              Delete
+            </button>
+          </li>
         ))}
       </ul>
     </div>
