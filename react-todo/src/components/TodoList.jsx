@@ -27,25 +27,19 @@ const TodoList = () => {
   };
 
   return (
-    <div className="todo-list-container">
+    <div>
       <h1>Todo List</h1>
-
       <AddTodoForm onAdd={addTodo} />
-
-      {todos.length > 0 ? (
-        <ul>
-          {todos.map((todo) => (
-            <TodoItem
-              key={todo.id}
-              todo={todo}
-              onToggle={toggleTodo}
-              onDelete={deleteTodo}
-            />
-          ))}
-        </ul>
-      ) : (
-        <p>No todos found.</p>
-      )}
+      <ul>
+        {todos.map((todo) => (
+          <TodoItem
+            key={todo.id}
+            todo={todo}
+            onToggle={toggleTodo}
+            onDelete={deleteTodo}
+          />
+        ))}
+      </ul>
     </div>
   );
 };
